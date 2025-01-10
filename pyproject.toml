@@ -17,6 +17,10 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+dependencies = [
+  "openpecha @ git+https://github.com/OpenPecha/toolkit-v2.git"
+]
+
 [project.optional-dependencies]
 dev = [
     "pytest",

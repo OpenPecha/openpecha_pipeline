@@ -8,6 +8,7 @@ from pecha_uploader.config import Destination_url
 from pecha_uploader.pipeline import upload_root
 
 
+
 def parse_root(docx_file: Path, metadata: Path, source_path: Union[str, None] = None):
     """
     Parse translation from google docx and google sheet(metadata)
@@ -59,7 +60,7 @@ def translation_pipeline(
     bo_paths: Dict,
     translation_paths: Union[List[Dict], Dict, None] = None,
     output_path: Path = JSON_OUTPUT_PATH,
-    destination_url: Destination_url = Destination_url.STAGING,
+    destination_url: Destination_url = Destination_url.PRODUCTION,
 ):
     """
     Input:
@@ -96,3 +97,41 @@ def translation_pipeline(
     else:
         # Update serialize_translation to handle this case
         pass
+
+
+if __name__ == "__main__":
+    data_list = [
+            {
+            "bo_path": {
+                "docx": "resources/ཚངས་པས་ཞུས་པའི་མདོ།/bo/Toh0158_kp0013_聖梵天所問大乘經_bo.docx",
+                "sheet": "resources/ཚངས་པས་ཞུས་པའི་མདོ།/bo/Toh0158_kp0013_聖梵天所問大乘經_bo.xlsx",
+            },
+            "zh_path": {
+                "docx": "resources/ཚངས་པས་ཞུས་པའི་མདོ།/zh/Toh0158_kp0013_聖梵天所問大乘經_zh.docx",
+                "sheet": "resources/ཚངས་པས་ཞུས་པའི་མདོ།/zh/Toh0158_kp0013_聖梵天所問大乘經_zh.xlsx",
+            }
+            },
+            {
+            "bo_path": {
+                "docx": "resources/རྒྱལ་པོ་ལ་གདམས་པའི་མདོ།1/bo/Toh0214_kp0018_教誡頻婆娑羅王大乘經_bo.docx",
+                "sheet": "resources/རྒྱལ་པོ་ལ་གདམས་པའི་མདོ།1/bo/Toh0214_kp0018_教誡頻婆娑羅王大乘經_bo.xlsx",
+            },
+            "zh_path": {
+                "docx": "resources/རྒྱལ་པོ་ལ་གདམས་པའི་མདོ།1/zh/Toh0214_kp0018_教誡頻婆娑羅王大乘經_zh.docx",
+                "sheet": "resources/རྒྱལ་པོ་ལ་གདམས་པའི་མདོ།1/zh/Toh0214_kp0018_教誡頻婆娑羅王大乘經_zh.xlsx",
+            }
+            },
+            {
+                "bo_path": {
+                    "docx": "resources/ཤེར་ཕྱིན་ཡི་གེ་གཅིག་མ།/bo/Toh0023_kp0002_一切如來母一字般若波羅蜜多經_bo.docx",
+                    "sheet": "resources/ཤེར་ཕྱིན་ཡི་གེ་གཅིག་མ།/bo/Toh0023_kp0002_一切如來母一字般若波羅蜜多經_bo.xlsx",
+                },
+                "zh_path": {
+                    "docx": "resources/ཤེར་ཕྱིན་ཡི་གེ་གཅིག་མ།/zh/Toh0023_kp0002_一切如來母一字般若波羅蜜多經_zh.docx",
+                    "sheet": "resources/ཤེར་ཕྱིན་ཡི་གེ་གཅིག་མ།/zh/Toh0023_kp0002_一切如來母一字般若波羅蜜多經_zh.xlsx",
+                }
+            }
+        ]
+    for data in data_list:
+        bo_path, zh_path = data["bo_path"], data["zh_path"]
+        translation_pipeline(bo_path, zh_path, Path("./"))
